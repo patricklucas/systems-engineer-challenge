@@ -1,0 +1,20 @@
+source "https://rubygems.org"
+
+ruby "2.3.0"
+
+gem "aws-sdk"
+gem "faraday"
+gem "pg"
+gem "puma"
+gem "rake"
+gem "redis"
+gem "sequel"
+gem "sinatra"
+gem "sidekiq"
+gem "foreman"
+
+group :test do
+  gem "database_cleaner"
+  gem "mock_redis"
+  gem "rspec"
+end

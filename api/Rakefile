@@ -1,0 +1,28 @@
+
+Dir["tasks/**/*.rake"].each { |task| load task }
+
+namespace :db do
+  require "./db/setup"
+
+  desc "Run migrations"
+  task :migrate, [:version] do |_, args|
+    Sequel.extension :migration
+    if args[:version]
+      puts "Migrating to version #{args[:version]}"
+      Sequel::Migrator.run(DB, "db/migrations", target: args[:version].to_i, table: :schema_info)
+    else
+      puts "Migrating to latest"
+      Sequel::Migrator.run(DB, "db/migrations", table: :schema_info)
+    end
+  end
+
+  desc "Rollback migrations. If version not specified it rollsback to the previous version"
+  task :rollback, [:version] do |_, args|
+    Sequel.extension :migration
+    version = args[:version] || DB[:schema_info].first[:version] - 1
+    if version
+      puts "Rolling back to version #{version}"
+      Sequel::Migrator.run(DB, "db/migrations", target: version.to_i, table: :schema_info)
+    end
+  end
+end
