@@ -44,8 +44,8 @@ URLs for the development and test databases you just created.
 Now run database migrations:
 
 ```
-$ foreman run bundle exec db:migrate
-$ foreman run bundle exec db:migrate RACK_ENV=test
+$ foreman run bundle exec rake db:migrate
+$ foreman run bundle exec rake db:migrate RACK_ENV=test
 ```
 
 ## Start the server
@@ -61,7 +61,7 @@ This command starts the api server and the background worker application.
 # API
 
 - `GET /ticks`: Show number of ticks been processed by the server
-- `POST /ticks`: Adds a new `tick` to thaequeue to be processed asynchronously. It will take 10 seconds for a `tick` to be processed
+- `POST /ticks`: Adds a new `tick` to the queue to be processed asynchronously. It will take 10 seconds for a `tick` to be processed
 
 
 # Deployment
